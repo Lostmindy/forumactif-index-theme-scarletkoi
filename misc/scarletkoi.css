@@ -6,6 +6,7 @@
     ########################################################## 
 */
 
+
 /* définition des variables utilisées */
 :root {
   /* ===================================
@@ -222,6 +223,12 @@ body {
 
 #sklmNav_searchbar {
   width: 100%;
+}
+
+/* On cache la toolbar de FA */
+#fa_toolbar {
+  position: relative;
+  top: -50px;
 }
 
 /* Mise en page du bouton de notifications */
