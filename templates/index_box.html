@@ -1,0 +1,120 @@
+<!-- [CREDITS] ------------------------- 
+Scarlet Koi - Catégories personnalisées pour ModernBB
+Design par Sygea - Code par 'Christa Lostmindy
+----
+Merci de ne pas retirer les crédits présents dans ce code.
+--------------------------------------
+DEBUT DU CODE // template index_box -->
+
+<ul class="linklist top">
+	<!-- BEGIN switch_user_logged_in -->
+	<li>
+		<a href="{U_SEARCH_NEW}"><i class="ion-ios-flame"></i>{L_SEARCH_NEW}</a>
+	</li>
+	<li>
+		<a href="{U_SEARCH_SELF}"><i class="ion-ios-box-outline"></i>{L_SEARCH_SELF}</a>
+	</li>
+	<!-- END switch_user_logged_in -->
+	<li>
+		<a href="{U_SEARCH_UNANSWERED}"><i class="ion-ios-chatbubble-outline"></i>{L_SEARCH_UNANSWERED}</a>
+	</li>
+	<!-- BEGIN switch_user_logged_in -->
+		<li class="rightside">
+			<a href="{U_MARK_READ}" accesskey="m"><i class="ion-android-checkmark-circle"></i>{L_MARK_FORUMS_READ}</a>
+		</li>
+	<!-- END switch_user_logged_in -->
+</ul>
+
+<div class="sklmCatConteneur">
+<!-- BEGIN catrow -->
+	<!-- BEGIN tablehead -->
+	<div class="sklmCat_blocTitre">
+		{catrow.tablehead.L_FORUM}
+	</div>
+
+	<div class="sklmCat_contenu">
+	<!-- END tablehead -->
+
+	<!-- BEGIN forumrow -->
+
+
+	<div class="sklmFoConteneur" >
+		<div class="sklmFo_blocTitre">
+			<h2 class="sklmFo_titre">
+				<a href="{catrow.forumrow.U_VIEWFORUM}" class="sklmFo_titre">
+					{catrow.forumrow.FORUM_NAME}
+				</a>
+			</h2>
+		</div>
+		<div class="sklmFo_blocIllustration">
+			<div class="sklmFo_illustration {catrow.forumrow.FOLDER_CLASSNAME}" data-statut="{catrow.forumrow.L_FORUM_FOLDER_ALT}">
+				<!--<img title="{catrow.forumrow.L_FORUM_FOLDER_ALT}" src="{catrow.forumrow.FORUM_FOLDER_IMG}" alt="{catrow.forumrow.L_FORUM_FOLDER_ALT}" />-->
+			</div>
+		</div>
+		<div class="sklmFo_blocDescription">
+			<div class="sklmFo_description sklmScrollbar">
+				{catrow.forumrow.FORUM_DESC}
+				<!-- BEGIN switch_moderators_links -->
+				{catrow.forumrow.switch_moderators_links.L_MODERATOR}{catrow.forumrow.switch_moderators_links.MODERATORS}
+				<!-- END switch_moderators_links -->
+			</div>
+		</div>
+		<div class="sklmFo_blocListeForums">
+			<div class="sklmFo_listeForums">
+				{catrow.forumrow.LINKS}
+			</div>
+		</div>
+		<div class="sklmFo_blocDernierMessage">
+			<div class="sklmFo_dernierMessage">
+				<!-- BEGIN switch_topic_title -->
+				<a href="{catrow.forumrow.U_LATEST_TOPIC}" title="{catrow.forumrow.LATEST_TOPIC_TITLE}">
+					{catrow.forumrow.LATEST_TOPIC_NAME}
+				</a>
+				<br />
+				<!-- END switch_topic_title -->
+				{catrow.forumrow.USER_LAST_POST}
+			</div>
+		</div>
+		
+		<div class="sklmFo_blocDernierAuteur">
+			<!-- BEGIN avatar -->
+			<div class="sklmFo_avatarAuteur">
+				{catrow.forumrow.avatar.LAST_POST_AVATAR}
+			</div>
+			<!-- END avatar -->
+		</div>
+		
+		<div class="sklmFo_blocForumStats">
+			<div class="sklmFo_forumStats">
+				<p><strong>{catrow.forumrow.TOPICS}</strong> {L_TOPICS}</p>
+				<p><strong>{catrow.forumrow.POSTS}</strong> {L_POSTS}</p>
+			</div>
+		</div>
+	</div>						
+	<!-- END forumrow -->
+
+	<!-- BEGIN tablefoot -->
+	</div>
+	<!-- END tablefoot -->
+<!-- END catrow -->
+
+<!-- BEGIN switch_on_index -->
+	<ul class="linklist bottom">
+		<li>
+			<a href="{U_TODAY_ACTIVE}">{L_TODAY_ACTIVE}</a>
+		</li>
+		<li>
+			<a href="{U_TODAY_POSTERS}">{L_TODAY_POSTERS}</a>
+		</li>
+		<li class="last">
+			<a href="{U_OVERALL_POSTERS}">{L_OVERALL_POSTERS}</a>
+		</li>
+		<!-- BEGIN switch_delete_cookies -->
+			<li class="rightside">
+				<a href="{switch_on_index.switch_delete_cookies.U_DELETE_COOKIES}" rel="nofollow"><i class="ion-trash-a"></i>{switch_on_index.switch_delete_cookies.L_DELETE_COOKIES}</a>
+			</li>
+		<!-- END switch_delete_cookies -->
+	</ul>
+<!-- END switch_on_index -->
+
+</div>

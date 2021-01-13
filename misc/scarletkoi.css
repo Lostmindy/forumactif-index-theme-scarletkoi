@@ -1,0 +1,971 @@
+/*  ### [CREDITS] ############################################
+    Scarlet Koi - Catégories & PA personnalisées pour ModernBB
+    Design par Sygea - Code par 'Christa Lostmindy
+    ----
+    Merci de ne pas retirer les crédits présents dans ce code.
+    ########################################################## 
+*/
+
+/* définition des variables utilisées */
+:root {
+  /* ===================================
+   * Variables générales :
+   * =================================== */
+  --couleur-bg: #fdfaf4;
+  --police: "Roboto", Arial, Tahoma, sans-serif;
+  /* couleurs réutilisées pour plusieurs éléments différents */
+  --couleur-principale: #d20f0e;
+  --couleur-principale-alt1: #feb835;
+  --couleur-principale-alt2: #f98813;
+  --couleur-ton-gris-base: #e0dbd2;
+  --couleur-ton-gris-sombre: #686868;
+  --couleur-ton-gris-clair: #f2ede4;
+  /* Couleur des groupes */
+  --couleur-gr1: #7cb326;
+  --couleur-gr2: #eeb53a;
+  --couleur-gr3: #31b2b4;
+  --couleur-gr4: #b43192;
+  --couleur-gr5: #eea2a4;
+  --couleur-gr6: #3e2e2f;
+  /* Variables pour l'image de séparation */
+  --img-separateur: url("https://i.goopics.net/O5x3w.png");
+  --img-separateur-hauteur: 156px;
+  --img-separateur-largeur: 19px;
+  /* l'avatar par défaut (utilisé dans le QEEL et les catégories) */
+  --img-avatar-defaut: url("https://i.goopics.net/emAgj.png");
+  /* ===================================
+   * Variables barre de navigation :
+   * =================================== */
+  --navbar-hauteur: 45px;
+  --navbar-couleur-bg: #f78213 ;
+  --navbar-couleur-txt: white;
+  --navbar-notif-base: url("https://i.goopics.net/4NOkZ.png");
+  --navbar-notif-nonlu: url("https://i.goopics.net/2powK.png");
+  /* ===================================
+   * Variables de la PA :
+   * (vérifiez le résultat sur tous les navigateurs - et résolutions - si vous modifiez ces dimensions, ça peut vite partir en vrille):
+   * =================================== */
+  --PA-hauteur-max: 230px;
+  /* Rappel : idéalement, la largeur totale ne doit pas dépasser 1200px */
+  --PA-col1-largeur-min: 510px;
+  --PA-col2-largeur-min: 300px;
+  --PA-col3-largeur-min: 300px;
+  /* ===================================
+   * Variables des catégories :
+   * =================================== */
+  --couleur-titre-categories: var(--couleur-principale);
+  --couleur-titre-forum: var(--couleur-ton-gris-sombre);
+  --couleur-titre-forum-survol: var(--couleur-principale);
+  /* couleurs nouveau message / pas de nouveau message / forum verrouillé */
+  --couleur-statut-normal: var(--couleur-principale);
+  --couleur-statut-nouveau: var(--couleur-principale-alt1);
+  --couleur-statut-ferme: #a1a1a1;
+  /* réglage des dimensions utiles */
+  --epaisseur-bordure-forums: 1rem;
+  --epaisseur-bordure-blanche: 0.5rem;
+  --epaisseur-bordure-coloree: 1rem;
+  /* illustration des forums */
+  --img-forum-par-defaut: url("https://i.goopics.net/X2A0g.png");
+  --img-forum-largeur: 250px;
+  --img-forum-hauteur: 150px;
+  /* ===================================
+   * Variables utilisées dans le QEEL :
+   * =================================== */
+  --img-qeel-bg: url("https://i.goopics.net/d7gXr.png");
+  --img-qeel-sep: var(--img-separateur);
+  --img-qeel-sep-hauteur: var(--img-separateur-hauteur);
+  --img-qeel-sep-largeur: var(--img-separateur-largeur);
+}
+
+/*  =======================================
+    Réécritures valeurs de base de ModernBB
+    ======================================= */
+body, html {
+  background: var(--couleur-bg);
+  font-family: var(--police);
+  min-width: 1200px;
+}
+
+a, a:link, a:visited {
+  color: var(--couleur-principale);
+}
+
+#wrap {
+  background: var(--couleur-bg);
+}
+
+.linklist {
+  border: none;
+}
+
+/*  =======================================
+    Classes utilitaires
+    ======================================= */
+/* classe des scrollbars */
+.sklmScrollbar {
+  overflow: auto;
+  scrollbar-color: var(--scrollbar-thumb, var(--couleur-ton-gris-sombre)) var(--scrollbar-fond, transparent);
+  scrollbar-width: thin;
+}
+.sklmScrollbar::-webkit-scrollbar {
+  width: var(--scrollbar-largeur, 8px);
+}
+.sklmScrollbar::-webkit-scrollbar-track {
+  background: var(--scrollbar-fond, transparent);
+}
+.sklmScrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb, var(--couleur-ton-gris-sombre));
+  border-radius: 6px;
+  border: 2px solid var(--scrollbar-bordure-couleur, transparent);
+}
+
+/* classe éléments cachés */
+.sklm_hidden {
+  display: none;
+}
+
+/*  =======================================================================
+    Header & Barre de navigation
+    ======================================================================= */
+body {
+  margin-top: var(--navbar-hauteur);
+}
+
+.sklmHeader {
+  text-align: center;
+}
+
+#logo {
+  float: none;
+  margin: auto;
+}
+
+/* mise en page de la barre de navigation */
+.sklmNavbar {
+  height: var(--navbar-hauteur);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--navbar-couleur-bg);
+  z-index: 1000;
+}
+.sklmNavbar ul {
+  display: flex;
+  height: 100%;
+  padding: 0 1rem;
+}
+.sklmNavbar a {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: var(--navbar-couleur-txt);
+  text-transform: uppercase;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1.3rem;
+  position: relative;
+  padding: 0 8px;
+  white-space: nowrap;
+}
+.sklmNavbar a img {
+  display: none;
+}
+.sklmNavbar a::after {
+  content: " ";
+  display: block;
+  background: rgba(255, 255, 255, 0.75);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0px;
+  transition: height 0.2s ease-in-out;
+}
+.sklmNavbar a:hover::after {
+  height: 6px;
+}
+.sklmNavbar form {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
+}
+.sklmNavbar form button[type=submit] {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(0, 0, 0, 0.3) !important;
+  padding: 0 20px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  font-size: 1.6rem;
+}
+.sklmNavbar form input[type=text] {
+  cursor: text;
+  border: none !important;
+  width: 100%;
+  min-width: 150px;
+  padding: 0 25px !important;
+  margin: 0 !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 1.2rem;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.sklmNavbar form input {
+  outline: none;
+  font-size: 11px;
+}
+
+#sklmNav_searchbar {
+  width: 100%;
+}
+
+/* Mise en page du bouton de notifications */
+#fa_notifications {
+  font-size: 0;
+}
+#fa_notifications:hover {
+  cursor: pointer;
+}
+#fa_notifications #notif_unread {
+  font-size: 1.3rem;
+  padding-left: 0.5rem;
+}
+#fa_notifications::before {
+  content: var(--navbar-notif-base);
+}
+#fa_notifications.unread::before {
+  content: url(--navbar-notif-nonlu);
+}
+
+/* Mise en page de la liste de notifications */
+#fa_toolbar #fa_right #notif_list {
+  background-color: var(--navbar-couleur-bg);
+  box-shadow: none;
+  border-radius: 0;
+  top: var(--navbar-hauteur);
+  left: auto !important;
+  right: 1rem;
+  position: fixed;
+}
+#fa_toolbar #fa_right #notif_list li {
+  color: #fff;
+}
+#fa_toolbar #fa_right #notif_list li.unread {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+#fa_toolbar #fa_right #notif_list li.unread .contentText::before {
+  content: "◆ ";
+}
+#fa_toolbar #fa_right #notif_list li.see_all {
+  background-color: #fa620c;
+  color: #ff9b64;
+}
+#fa_toolbar #fa_right #notif_list li a.delete::before {
+  color: var(--couleur-principale);
+}
+
+/* Affichage du titre et de la description du forum 
+   (pas de mise en page spéciale parce qu'ils ne sont pas spécifiquement prévus pour être affichés)
+*/
+#site-desc {
+  position: static;
+  text-align: center;
+}
+#site-desc p {
+  color: inherit;
+}
+
+#site-title, #site-title h1 {
+  color: var(--couleur-principale);
+}
+
+/*  =======================================================================
+    Affichage du message d'accueil (PA)
+    ======================================================================= */
+.sklmPAConteneur {
+  margin-top: 5rem;
+}
+
+/* le titre de la PA, si vous voulez lui en donner un */
+.sklmPA_titre {
+  font-size: 6rem;
+  text-align: center;
+  font-style: italic;
+  text-transform: uppercase;
+  color: var(--couleur-principale);
+  font-weight: bold;
+}
+
+/* Agencement des blocs en colonnes de la PA */
+.sklmPAColonnes {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Propriétés communes aux trois blocs */
+.sklmPA_colBloc {
+  height: var(--PA-hauteur-max, 230px);
+  overflow: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+/* Premier bloc */
+.sklmPA_infosBloc {
+  background: var(--couleur-principale);
+  flex: 0 1 33%;
+  min-width: var(--PA-col1-largeur-min);
+}
+
+/* Second bloc */
+.sklmPA_contexteBloc {
+  color: var(--couleur-principale);
+  flex: 1 1 var(--PA-col2-largeur-min);
+  text-align: center;
+  min-width: var(--PA-col2-largeur-min);
+}
+
+/* Troisième bloc */
+.sklmPA_actuBloc {
+  background: var(--couleur-principale);
+  flex: 1 1 var(--PA-col3-largeur-min);
+  display: flex;
+  min-width: var(--PA-col3-largeur-min);
+}
+
+/* ~~~ Contenu du premier bloc : ligne 1 */
+.sklmPA_infosBloc-l1 {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+/* affichage du menu de la PA */
+.sklmPA_navBloc {
+  order: 2;
+  flex: 1 1 30%;
+  padding-left: 1rem;
+}
+.sklmPA_navBloc li {
+  text-align: right;
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 1.3em;
+  margin-bottom: 0.4rem;
+}
+.sklmPA_navBloc li a {
+  display: block;
+}
+.sklmPA_navBloc li a:link, .sklmPA_navBloc li a:visited {
+  color: white;
+}
+.sklmPA_navBloc li a:hover, .sklmPA_navBloc li a:active {
+  color: var(--couleur-principale);
+  background: #fff;
+}
+
+/* Affichage du staff */
+.sklmPA_staffBloc {
+  order: 1;
+  flex: 0 0 332px;
+}
+
+.sklmPA_staffList {
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  padding: 8px;
+  border-bottom: 0.8rem solid var(--couleur-principale-alt2);
+}
+
+.sklmPA_staffItem {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  color: #fff;
+  margin-left: 8px;
+}
+.sklmPA_staffItem:first-child {
+  margin-left: 0;
+}
+.sklmPA_staffItem:hover > .sklmPA_staffInfo {
+  opacity: 1;
+  background: rgba(249, 138, 19, 0.75);
+}
+
+.sklmPA_staffInfo {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.3em;
+  overflow: hidden;
+}
+.sklmPA_staffInfo strong {
+  text-transform: uppercase;
+  text-decoration: underline;
+  word-break: break-word;
+}
+
+/* Contenu des blocs : Premier bloc, ligne 2 */
+.sklmPA_infosBloc-l2 {
+  display: flex;
+}
+
+.sklmPA_groupesBloc {
+  order: 3;
+  display: flex;
+  flex: 1 1 100%;
+}
+
+.sklmPA_lienDiscord {
+  display: block;
+  width: 25%;
+}
+
+.sklmPA_groupesList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1 1 50%;
+  font-size: 1.2rem;
+}
+.sklmPA_groupesList li {
+  flex: 1 1 30%;
+  font-weight: bold;
+  padding: 0.5rem 0;
+  color: #fff;
+}
+.sklmPA_groupesList li strong {
+  display: inline-flex;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50px;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  color: white;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+}
+.sklmPA_groupesList li.sklm_gr1 strong {
+  background: var(--couleur-gr1);
+}
+.sklmPA_groupesList li.sklm_gr2 strong {
+  background: var(--couleur-gr2);
+}
+.sklmPA_groupesList li.sklm_gr3 strong {
+  background: var(--couleur-gr3);
+}
+.sklmPA_groupesList li.sklm_gr4 strong {
+  background: var(--couleur-gr4);
+}
+.sklmPA_groupesList li.sklm_gr5 strong {
+  background: var(--couleur-gr5);
+}
+.sklmPA_groupesList li.sklm_gr6 strong {
+  background: var(--couleur-gr6);
+}
+.sklmPA_groupesList li a:link, .sklmPA_groupesList li a:visited {
+  color: #fff;
+}
+.sklmPA_groupesList li a:hover, .sklmPA_groupesList li a:active {
+  color: var(--couleur-principale-alt1);
+}
+
+/* contenu des blocs : 2eme bloc, contexte/presentation */
+.sklmPA_contexteBloc.sklmScrollbar {
+  /* on redéfinit les couleurs de la scrollbar pour ce bloc */
+  --scrollbar-thumb:var(--couleur-principale);
+  --scrollbar-bordure-couleur:var(--couleur-bg);
+}
+
+/* Contenu des blocs : 3eme bloc, events & prédefs */
+.sklmPA_actuBloc > div:first-child {
+  margin-right: 1rem;
+}
+
+.sklmPA_eventsBloc {
+  flex: 1 1 50%;
+  font-size: 1.2rem;
+}
+
+.sklmPA_eventsList {
+  background: #ffeedd;
+  height: 100%;
+  border-bottom: 0.8rem solid var(--couleur-principale-alt2);
+  overflow: auto;
+}
+.sklmPA_eventsList.sklmScrollbar {
+  /* on rédéfinit les couleurs de la scrollbar pour ce bloc */
+  --scrollbar-thumb:var(--couleur-principale-alt2);
+  --scrollbar-bordure-couleur:var(--couleur-bg);
+}
+.sklmPA_eventsList li {
+  padding: 0.6rem;
+  color: var(--couleur-principale);
+}
+.sklmPA_eventsList li a {
+  text-decoration: underline;
+}
+.sklmPA_eventsList li:nth-child(even) {
+  background: var(--couleur-bg);
+  color: var(--couleur-principale-alt2);
+}
+
+.sklmPA_predefsBloc {
+  flex: 0 1 132px;
+}
+.sklmPA_predefsBloc h2 {
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.sklmPA_predefsList {
+  display: flex;
+  flex-wrap: wrap;
+}
+.sklmPA_predefsList li {
+  flex: 1 1 50%;
+  text-align: center;
+  padding: 0.5rem;
+}
+.sklmPA_predefsList a {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  overflow: hidden;
+  border: 3px solid #fff;
+}
+.sklmPA_predefsList a img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  transition: transform 0.8s ease-in-out;
+}
+.sklmPA_predefsList a:hover img {
+  transform: rotate(360deg);
+}
+
+/* Affichage des partenaires & des tops */
+.sklmPA_partosBloc, .sklmPA_topsBloc {
+  width: 100%;
+}
+
+.sklmPA_partosList, .sklmPA_topsList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.sklmPA_partosList li {
+  margin: 0 1.4rem;
+}
+
+/*  =======================================================================
+ *   Affichage des Catégories et Forums
+ *  ======================================================================= */
+.sklmCatConteneur {
+  max-width: 1080px;
+  margin: auto;
+}
+
+.sklmCat_blocTitre {
+  margin-bottom: 20px;
+}
+.sklmCat_blocTitre::before {
+  content: var(--img-separateur);
+  display: block;
+  text-align: center;
+  margin: 15px auto;
+}
+.sklmCat_blocTitre > h2 {
+  font-size: 6rem;
+  text-align: center;
+  font-style: italic;
+  text-transform: uppercase;
+  color: var(--couleur-titre-categories);
+  font-weight: bold;
+}
+
+.sklmFoConteneur {
+  --largeur-col-1:calc(var(--img-forum-largeur) + 2 * var(--epaisseur-bordure-blanche) + 2 * var(--epaisseur-bordure-coloree));
+  /* setup grille */
+  display: grid;
+  grid-template-columns: var(--largeur-col-1) 3fr 1fr minmax(100px, auto);
+  grid-template-rows: 1fr 1fr 3fr 1fr;
+  gap: 6px 15px;
+  /* hauteur max par rapport à l'image */
+  max-height: calc(var(--img-forum-hauteur) + 2 * var(--epaisseur-bordure-blanche) + 2 * var(--epaisseur-bordure-coloree) + 2 * var(--epaisseur-bordure-forums));
+  background: #f2ede4;
+  position: relative;
+  padding: var(--epaisseur-bordure-forums);
+  margin: 4rem auto;
+}
+
+.sklmFo_blocTitre {
+  grid-area: 2/2/3/3;
+}
+
+h2.sklmFo_titre {
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: bold;
+  line-height: 1;
+}
+
+a.sklmFo_titre {
+  color: var(--couleur-titre-forum);
+}
+
+a:hover.sklmFo_titre, a:active.sklmFo_titre {
+  color: var(--couleur-titre-forum-survol);
+}
+
+.sklmFo_blocIllustration {
+  grid-area: 1/1/5/2;
+  /* dimensions calculées par rapport aux réglages des marges et à l'image d'illustration */
+  height: calc(var(--img-forum-hauteur) + 2 * var(--epaisseur-bordure-blanche) + 2 * var(--epaisseur-bordure-coloree));
+  width: calc(var(--img-forum-largeur) + 2 * var(--epaisseur-bordure-blanche) + 2 * var(--epaisseur-bordure-coloree));
+  /* la bordure blanche (en réalité la couleur de fond) */
+  padding: var(--epaisseur-bordure-blanche);
+  background: #fff;
+}
+
+.sklmFo_illustration {
+  background: var(--couleur-statut-normal) var(--img-forum-par-defaut) no-repeat center center;
+  width: calc(100%);
+  height: calc(100%);
+}
+.sklmFo_illustration.cat_no_new, .sklmFo_illustration.forum_no_new {
+  background-color: var(--couleur-statut-normal);
+}
+.sklmFo_illustration.cat_new, .sklmFo_illustration.forum_new {
+  background-color: var(--couleur-statut-nouveau);
+}
+.sklmFo_illustration.cat_locked, .sklmFo_illustration.forum_locked {
+  background-color: var(--couleur-statut-ferme);
+}
+
+.sklmFo_blocDescription {
+  grid-area: 3/2/5/4;
+  padding: 0.8rem;
+  background: var(--couleur-ton-gris-base);
+  border: 1px solid #c6c1b8;
+  color: var(--couleur-ton-gris-sombre);
+}
+
+.sklmFo_description {
+  height: 100%;
+  overflow: auto;
+  line-height: 1.3em;
+}
+.sklmFo_description img[style^="float:left"] {
+  /* on annule le positionnement flottant par défaut */
+  float: none;
+  /* on positionne exactement par dessus l'emplacement prévu pour les illustrations */
+  position: absolute;
+  top: calc(var(--epaisseur-bordure-forums) + var(--epaisseur-bordure-blanche) + var(--epaisseur-bordure-coloree));
+  left: calc(var(--epaisseur-bordure-forums) + var(--epaisseur-bordure-blanche) + var(--epaisseur-bordure-coloree));
+  /* pour eviter les depassements on va fixer les dimensions */
+  height: var(--img-forum-hauteur);
+  width: var(--img-forum-largeur);
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.sklmFo_blocListeForums {
+  grid-area: 1/2/2/3;
+}
+
+.sklmFo_listeForums {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0;
+}
+.sklmFo_listeForums a {
+  display: inline-block;
+  margin: 1px 5px 1px 0;
+  padding: 4px 8px;
+  border-radius: 15px;
+  color: var(--couleur-ton-gris-clair);
+  background: var(--couleur-ton-gris-sombre);
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.sklmFo_blocDernierMessage {
+  grid-area: 1/3/3/4;
+  text-align: right;
+}
+
+.sklmFo_dernierMessage {
+  line-height: 1.3;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-style: italic;
+}
+.sklmFo_dernierMessage a, .sklmFo_dernierMessage strong {
+  font-size: 1.3rem;
+  text-transform: none;
+  font-weight: bold;
+}
+
+.sklmFo_blocDernierAuteur {
+  grid-area: 1/4/4/5;
+}
+
+.sklmFo_avatarAuteur {
+  position: absolute;
+  height: 150px;
+  width: 150px;
+  overflow: hidden;
+  top: -30px;
+  right: -45px;
+  border-radius: 100%;
+  border: var(--epaisseur-bordure-forums) solid var(--couleur-ton-gris-clair);
+  background: var(--img-avatar-defaut) no-repeat;
+  background-size: cover;
+}
+.sklmFo_avatarAuteur img {
+  -o-object-fit: cover;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.sklmFo_blocForumStats {
+  grid-area: 4/4/5/5;
+  align-self: end;
+}
+
+.sklmFo_forumStats {
+  text-align: right;
+  color: var(--couleur-ton-gris-sombre);
+  margin-bottom: 1rem;
+}
+.sklmFo_forumStats p {
+  font-size: 0.9em;
+  line-height: 1.5;
+  margin: 0;
+}
+.sklmFo_forumStats strong {
+  color: var(--couleur-principale);
+}
+
+/*  =======================================================================
+    Pied de page et QEEL
+    ======================================================================= */
+.sklmFoot {
+  /* Propriétés générales du pied de page */
+  font-size: 1.2em;
+}
+.sklmFoot::before {
+  /* image de separation avant le QEEL */
+  display: block;
+  /* on utilise la même image que le separateur des categories et on la fait tourner */
+  content: var(--img-qeel-sep);
+  height: var(--img-qeel-sep-hauteur);
+  width: var(--img-qeel-sep-largeur);
+  transform: rotate(90deg);
+  /* et on centre tout ça */
+  margin: auto;
+}
+
+.sklmQeelContent {
+  background: var(--img-qeel-bg) top left repeat #000;
+  padding: 4rem 2.5rem;
+  color: #fff;
+  position: relative;
+}
+
+/* affichage du titre Qui Est En Ligne (caché par défaut) */
+.sklmQeelHeader {
+  display: none;
+  /* caché par défaut */
+  margin-top: 0;
+}
+
+.sklmQeelMainData {
+  display: flex;
+}
+
+.sklmQeelPartenaires {
+  margin-top: 1rem;
+}
+
+ul.sklmQeelPartenaires_liste {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+ul.sklmQeelPartenaires_liste li {
+  margin: 2px;
+}
+
+.sklmQeel_h1 {
+  color: var(--couleur-principale);
+  margin: 1rem 0;
+  font-size: 3em;
+  font-style: italic;
+}
+
+.sklmQeel_onlineStats {
+  flex: 1 0 60%;
+  display: flex;
+}
+
+.sklmQeel_onlineDataBlock {
+  --scrollbar-thumb:#433b3b;
+  flex: 1;
+  height: 130px;
+  margin: 1rem 0;
+}
+
+/* Affichage des onglets (AJD & 24H) par défaut (sans JS) */
+.sklmQeel_onlineTabs {
+  display: none;
+}
+
+/* Affichage des onglets quand le JS est activé */
+[role=tablist].sklmQeel_onlineTabs {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+[role=tablist].sklmQeel_onlineTabs a {
+  display: inline-block;
+  padding: 1rem;
+  background: #2f2828;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.4em;
+  font-style: italic;
+  border: 1px solid transparent;
+  width: 100%;
+  text-align: right;
+}
+[role=tablist].sklmQeel_onlineTabs a[aria-selected=true] {
+  background: #433b3b;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+[role=presentation].sklmQeel_onlineTab {
+  margin-bottom: 0.5rem;
+}
+
+/* gestion de l'affichage du contenu des onglets  */
+/* affichage de base (sans JS) du contenu des onglets */
+.sklmQeel_onlineTabContent {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  margin: 5px 0;
+}
+.sklmQeel_onlineTabContent h2 {
+  color: var(--couleur-principale);
+}
+
+/* quand le contenu de l'onglet est caché */
+[aria-hidden=true].sklmQeel_onlineTabContent {
+  display: none;
+}
+
+/* quand le contenu de l'onglet est affiché */
+[role=tabpanel].sklmQeel_onlineTabContent {
+  background: none;
+  margin: 0 1rem;
+  padding: 0;
+}
+[role=tabpanel].sklmQeel_onlineTabContent > h2 {
+  display: none;
+}
+
+/* On supprime le saut de ligne parasite de la liste des connectés */
+.sklmQeel_connectes-liste > br:first-child {
+  display: none;
+}
+
+/* Bloc affichage dernier membre inscrit */
+.sklmQeel_lastMember {
+  flex: 1 0 40%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Gestion de l'affichage de l'avatar du dernier membre inscrit */
+.sklmQeel_lastMemberAva {
+  order: 1;
+  height: 150px;
+  width: 150px;
+  border: 5px solid #2f2828;
+  overflow: hidden;
+  margin-right: 2rem;
+  /* image de fond si l'avatar du dernier inscrit ne charge pas */
+  background: var(--img-avatar-defaut) no-repeat;
+  background-size: cover;
+}
+.sklmQeel_lastMemberAva > img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.sklmQeel_lastMemberName {
+  order: 2;
+  font-size: 0px;
+}
+.sklmQeel_lastMemberName > h2 {
+  text-transform: uppercase;
+  font-style: italic;
+  font-size: 2.2rem;
+  margin-top: 1.5rem;
+  color: inherit;
+  font-weight: normal;
+}
+.sklmQeel_lastMemberName > strong {
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+/* Bloc statistiques membres et messages du forum */
+.sklmQeel_forumStats {
+  position: absolute;
+  top: 0;
+  right: 3rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-50%);
+}
+.sklmQeel_forumStats > span {
+  text-align: right;
+  font-size: 1.4em;
+  text-transform: uppercase;
+}
+.sklmQeel_forumStats > span:first-child {
+  color: #262121;
+}
