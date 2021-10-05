@@ -6,7 +6,6 @@
     ########################################################## 
 */
 
-
 /* définition des variables utilisées */
 :root {
   /* ===================================
@@ -51,6 +50,8 @@
   --PA-col1-largeur-min: 510px;
   --PA-col2-largeur-min: 300px;
   --PA-col3-largeur-min: 300px;
+  --PA-img-staff-largeur:100px;
+  --PA-img-staff-hauteur:100px;
   /* ===================================
    * Variables des catégories :
    * =================================== */
@@ -325,8 +326,11 @@ body {
 /* Premier bloc */
 .sklmPA_infosBloc {
   background: var(--couleur-principale);
-  flex: 0 1 33%;
+  flex: 0 1 var(--PA-col1-largeur-min);
   min-width: var(--PA-col1-largeur-min);
+  display:flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 /* Second bloc */
@@ -378,26 +382,27 @@ body {
 /* Affichage du staff */
 .sklmPA_staffBloc {
   order: 1;
-  flex: 0 0 332px;
 }
 
 .sklmPA_staffList {
   display: flex;
-  justify-content: space-between;
   background: #fff;
   padding: 8px;
   border-bottom: 0.8rem solid var(--couleur-principale-alt2);
 }
 
 .sklmPA_staffItem {
-  width: 100px;
-  height: 100px;
+  width: var(--PA-img-staff-largeur, 100px);
+  height: var(--PA-img-staff-hauteur, 100px);
   position: relative;
   color: #fff;
   margin-left: 8px;
 }
 .sklmPA_staffItem:first-child {
   margin-left: 0;
+}
+.sklmPA_staffItem img {
+  height:100%;width:100%;object-fit: cover;-o-object-fit: cover;
 }
 .sklmPA_staffItem:hover > .sklmPA_staffInfo {
   opacity: 1;
@@ -443,16 +448,15 @@ body {
 }
 
 .sklmPA_groupesList {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:0.5rem;
   flex: 1 1 50%;
   font-size: 1.2rem;
+  align-items: center;
 }
 .sklmPA_groupesList li {
-  flex: 1 1 30%;
   font-weight: bold;
-  padding: 0.5rem 0;
   color: #fff;
 }
 .sklmPA_groupesList li strong {
@@ -619,7 +623,7 @@ body {
   /* setup grille */
   display: grid;
   grid-template-columns: var(--largeur-col-1) 3fr 1fr minmax(100px, auto);
-  grid-template-rows: 1fr 1fr 3fr 1fr;
+  grid-template-rows: auto auto 1fr auto;
   gap: 6px 15px;
   /* hauteur max par rapport à l'image */
   max-height: calc(var(--img-forum-hauteur) + 2 * var(--epaisseur-bordure-blanche) + 2 * var(--epaisseur-bordure-coloree) + 2 * var(--epaisseur-bordure-forums));
@@ -631,6 +635,7 @@ body {
 
 .sklmFo_blocTitre {
   grid-area: 2/2/3/3;
+  align-self:end;
 }
 
 h2.sklmFo_titre {
@@ -689,7 +694,7 @@ a:hover.sklmFo_titre, a:active.sklmFo_titre {
 }
 .sklmFo_description img[style^="float:left"] {
   /* on annule le positionnement flottant par défaut */
-  float: none;
+  float: none !important;
   /* on positionne exactement par dessus l'emplacement prévu pour les illustrations */
   position: absolute;
   top: calc(var(--epaisseur-bordure-forums) + var(--epaisseur-bordure-blanche) + var(--epaisseur-bordure-coloree));
