@@ -5,7 +5,7 @@ En principe, si vous vous débrouillez relativement bien avec les bases du code,
 ## Généralités 
 
 - La classe `.sklm_hidden` sert à cacher par défaut certains contenus, en particulier les titres des différentes sections. Ils sont là pour s'y repérer, et également pour (vaguement) faciliter la lecture aux potentiels lecteurs d'écrans automatiques.  
-- A la base ce thème était un exercice de code basé sur une maquette de Sygea, qui suggérait d'en profiter pour s'entrainer avec flexbox. Du coup, lorsque l'écran n'est plus assez large pour elle, cette PA tient sur deux lignes. Ce n'est pas un bug !  
+- ~~A la base ce thème était un exercice de code basé sur une maquette de Sygea, qui suggérait d'en profiter pour s'entrainer avec flexbox. Du coup, lorsque l'écran n'est plus assez large pour elle, cette PA tient sur deux lignes. Ce n'est pas un bug !~~ Ce n'est plus d'actualité (encore que ça mériterait peut-être d'être revu un de ces jours).
 - La plupart des éléments de cette page d'accueil sont sous forme de liste HTML, qui, pour rappel, doivent respecter cette forme : 
     ```html
     <ul>

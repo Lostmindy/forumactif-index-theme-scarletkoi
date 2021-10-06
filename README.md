@@ -45,12 +45,12 @@ A vous de créer les autres images, à savoir :
 ## Réglages préalables
 
 Pour que ce thème fonctionne au mieux, voici les réglages à avoir sur votre forum :
-- **Réglez la structure des catégories :** dans votre panneau d'administration, onglet **Affichage → Page d'accueil → Structure et hiérarchie → Niveau de compression de l'index**, sélectionner l'option *Séparer les catégories sur l'index* : Moyen
 - **Pour avoir les notifications, activez la toolbar :** Dans votre panneau d'administration, rendez vous dans l'onglet **Modules → Toolbar → Configuration** et cochez "Oui" pour l'option *"Activer la toolbar"*. Si vous n'aimez pas le système de notifications de Forumactif, cette étape n'est pas obligatoire. 
+- **Déplacez le lien "Rechercher" :** J'ai choisi de laisser le bouton "Rechercher" dans la barre de navigation en plus de la recherche rapide, pour ceux qui préfèrent faire une recherche avancée. Idéalement, déplacez le dans la barre de navigation pour qu'il se trouve juste avant le bouton "S'enregistrer". Pour cela, rendez vous dans l'onglet **Affichage → Page d'accueil  → En-tête & Navigation  → Barre de navigation** et utilisez les flèches pour déplacer les éléments du menu. 
 - **Désactivez la chatbox** : Elle est fonctionnelle, mais son affichage n'a pas été modifié pour ce thème. Il vous faudra trouver vous même comment la personnaliser sous modernBB si vous tenez à l'utiliser. Pour la désactiver, rendez vous dans votre panneau d'administration, onglet **Modules → Chatbox → Configuration** et sélectionnez "Non" pour l'option *"Activer la Chatbox"*.  
 - **Désactivez l'affichage de la légende des statuts des messages** : Dans le panneau d'administration, sous l'onglet **Général → Messages et Emails → Configuration**, trouvez l'option *"Afficher la légende des statuts des messages"* et cochez "Non".  
-- **Désactivez l'affichage de la connexion rapide** : Comme pour la chatbox, elle est fonctionnelle, mais pas personnalisée pour ce thème. Vous pourrez la désactiver dans votre panneau d'administration, onglet **Affichage → Page d'Accueil → Généralités → Général**, trouvez l'option *"Affichage de la connexion rapide"* et choisissez "Ne pas afficher".  
-- **Déplacez le lien "Rechercher" :** J'ai choisi de laisser le bouton "Rechercher" dans la barre de navigation en plus de la recherche rapide, pour ceux qui préfèrent faire une recherche avancée. Idéalement, déplacez le dans la barre de navigation pour qu'il se trouve juste avant le bouton "S'enregistrer". Pour cela, rendez vous dans l'onglet **Affichage → Page d'accueil  → En-tête & Navigation  → Barre de navigation** et utilisez les flèches pour déplacer les éléments du menu. 
+- **Désactivez l'affichage de la connexion rapide** : Comme pour la chatbox, elle est fonctionnelle, mais pas personnalisée pour ce thème. Vous pourrez la désactiver dans votre panneau d'administration, onglet **Affichage → Page d'Accueil → Généralités → Général**, trouvez l'option *"Affichage de la connexion rapide"* et choisissez "Ne pas afficher". 
+- **Réglez la structure des catégories :** dans votre panneau d'administration, onglet **Affichage → Page d'accueil → Structure et hiérarchie → Niveau de compression de l'index**, sélectionner l'option *Séparer les catégories sur l'index* : Moyen
 - **Activez l'affichage des sous-forums :** dans votre panneau d'administration, onglet **Affichage → Page d'accueil → Structure et hiérarchie → Hiérarchie**, réglez l'option *"Afficher les liens vers les sous-forums"* sur "Oui" ou "avec une image". 
 - **Activez l'affichage du dernier message posté :** dans votre panneau d'administration, onglet **Affichage → Page d'accueil → Structure et hiérarchie → Hiérarchie**, réglez l'option *Afficher le titre du sujet du dernier message d'un forum sur l'index* sur "Oui"
 - **Activez l'affichage de l'avatar du dernier posteur :** dans votre panneau d'administration, onglet **Affichage → Page d'accueil → Structure et hiérarchie → Hiérarchie**, réglez l'option *"Afficher les avatars dans la colonne "Derniers messages"* sur "Oui". 
@@ -61,7 +61,14 @@ Pour que ce thème fonctionne au mieux, voici les réglages à avoir sur votre f
 - Ce thème est prévu pour une largeur de forum de 1200px minimum
 - Pour ajouter l'image du header, vous devez tout simplement changer le logo via le panneau d'administration (onglet **Affichage → Images et Couleurs → Gestion des Images → Mode Avancé** et mettre le lien de l'illustration du header pour le logo)
 - Comme les groupes sont affichés sur le message d'accueil, ils ne sont pas présents dans le QEEL, ce n'est pas un oubli
-- Les catégories n'utilisent pas les images définies dans le panneau d'administration pour les icônes du forum.
+- Les catégories n'utilisent pas les images définies dans le panneau d'administration pour les icônes du forum : c'est le contour des images qui change pour indiquer le statut de lecture de la catégorie.
+- Vous pouvez illustrer chaque catégorie avec une image différente. Pour cela, au moment de définir un nouveau forum (dans **Général → Forum → Catégories et forums**), remplissez le champ *Adresse de l'image* par le lien d'une image d'illustration de votre choix. Leur format est à votre discrétion, les dimensions étant réglables dans cette partie du code CSS : 
+  ```css
+  /* illustration des forums */
+  --img-forum-par-defaut: url("https://i.goopics.net/X2A0g.png");
+  --img-forum-largeur: 250px;
+  --img-forum-hauteur: 150px;
+  ```
 
 ## Guide d'installation
 
@@ -96,8 +103,8 @@ Rendez-vous dans la gestion des codes Javascript de votre panneau d'administrati
 ### Caractéristiques
 
 - Vous pouvez afficher un titre au dessus du message d'accueil
-- Seules trois icones de staff (format 100*100) peuvent être mises sur le message d'accueil. N'essayez pas d'en rajouter ou d'en supprimer ou le code va avoir une drôle de tête.
-- Il vaut mieux éviter d'avoir plus de 5 liens dans le menu de navigation
+- Le code est prévu pour trois icones de staff (format 100*100px) mais devrait pouvoir être adapté pour en rajouter ou en supprimez si vous modifiez les bonnes valeurs dans le CSS (en particulier la largeur de la première colonne)
+- Il vaut mieux éviter d'avoir plus de 5 liens dans le menu de navigation (mais là encore ça se gère en jonglant dans le CSS)
 - Vous pouvez avoir plus (ou moins) de six groupes affichés (il vous faudra juste adapter la hauteur de la PA)
 - Vous pouvez avoir plus (ou moins) de 4 images de prédéfinis affichés (il vous faudra juste adapter la hauteur de la PA)
 - Vous pouvez mettre autant de partenaires et de tops que vous le souhaitez
@@ -112,6 +119,13 @@ Dans votre panneau d'administration, rendez vous dans l'onglet **Affichage → P
 
 ### Mais où est la liste des sujets / l'affichage des messages / etc. ?
 Il n'y en a pas (pour l'instant), ce code ne concerne que l'index du forum. Si Sygea fait une maquette pour ces éléments additionnels, je les ajouterai. En attendant, il faudra faire sans.
+
+### Comment avoir une bannière qui prend toute la largeur disponible ?
+Dans le CSS, trouvez la partie de code avec les classes dont les noms commencent par `.sklmHeader` et rajoutez à la suite les règles CSS suivantes :
+```css
+.wrap.sklmHeader_wrap-ban {padding:0;margin:0;width:100%;max-width:100%;}
+.wrap.sklmHeader_wrap-ban img {max-width:100%;}
+```
 
 ### Je voudrais juste récupérer les catégories seulement / la PA seulement / etc.
 J'ai fait un petit [guide pour l'installation individuelle des éléments](./doc/installation-independante.md) si ça vous intéresse.
