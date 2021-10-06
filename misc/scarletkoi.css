@@ -330,11 +330,12 @@ body {
   min-width: var(--PA-col1-largeur-min);
   display:flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 /* Second bloc */
 .sklmPA_contexteBloc {
+  background:transparent;
   color: var(--couleur-principale);
   flex: 1 1 var(--PA-col2-largeur-min);
   text-align: center;
@@ -574,6 +575,13 @@ body {
 .sklmPA_predefsList a:hover img {
   transform: rotate(360deg);
 }
+
+/* credits PA */
+.sklmPA_creditsBloc {display:grid;grid-template-columns: 1fr auto;gap:5px;grid-template-areas: "zcontent zcredit";margin:5px;}
+.sklmPA_creditsBloc p, .sklmPA_creditsBloc h2 {all:unset; font-size:1em;}
+.sklmPA_creditsBloc h2 {grid-area:zcredit; cursor:help;}
+.sklmPA_creditsBloc p {grid-area: zcontent;justify-self: end;opacity:0;transition:all 1s ease-in-out}
+.sklmPA_creditsBloc:hover p {opacity:1;}
 
 /* Affichage des partenaires & des tops */
 .sklmPA_partosBloc, .sklmPA_topsBloc {
