@@ -247,7 +247,7 @@ body {
   content: var(--navbar-notif-base);
 }
 #fa_notifications.unread::before {
-  content: url(--navbar-notif-nonlu);
+  content: var(--navbar-notif-nonlu);
 }
 
 /* Mise en page de la liste de notifications */
